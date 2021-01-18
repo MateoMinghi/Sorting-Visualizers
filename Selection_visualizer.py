@@ -5,18 +5,18 @@ import random
 #colors for the visualizer
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
-GREEN = (255, 0, 255)
+GREEN = (0, 255, 0)
 
 #window parameters
-WIDTH = 680
-HEIGHT = 500
+WIDTH = 640
+HEIGHT = 480
 window_size = (WIDTH, HEIGHT)
 
 #initialize pygame
 pg.init()
 
 #more window parameters
-win = pg.display.set_mode(window)
+win = pg.display.set_mode(window_size)
 pg.display.set_caption('Selection Sort')
 clock = pg.time.Clock()
 
@@ -35,30 +35,29 @@ for i in range(division):
   h_arr.append(bar_height)
   state.append(1)
   
- counter = 0
+counter = 0
  
- def Algorithm(h_arr, state, counter):
-  while Algorithm:
-    win.fill((0, 0, 0))
-    
-    if counter < len(h_arr):
-      min_value = counter
-      
-      for j in range(counter+1, len(h_arr)):
-        #if any element is smalled than the smallest value, then that element is the real smallest value
-        if h_arr[j] < h_arr[min_value]:
-          min_value = j
-          state[j] = 0
-         else:
-          state[j] = 1
-          state[min_value] = 1
-         #swapping elements is the array
-         h_arr[counter], h_arr[min_value] = h_arr[min_value], h_arr[counter]
-     counter+1
-      
-      if counter - 1 < len(h_arr):
-        state[counter - 1] = 2
-        
+def algorithm(h_arr, state, counter):
+    while algorithm:
+        win.fill((0, 0, 0))
+        if counter < len(h_arr):
+
+            min_idx = counter
+            #if any element is smalled than the smallest value, then that element is the real smallest value
+            for j in range(counter+1, len(h_arr)):
+                if h_arr[min_idx] > h_arr[j]:
+                    state[j] = 0
+                    min_idx = j
+                else:
+                    state[j] = 1
+                    state[min_idx] = 1
+            #swapping elements in the array
+            h_arr[counter], h_arr[min_idx] = h_arr[min_idx], h_arr[counter]
+        counter+=1
+
+        if counter - 1 < len(h_arr):
+            state[counter - 1] = 2
+
         #changing the colors of the rectangles depending on their state
         for i in range(len(h_arr)):
             if state[i] == 0:
@@ -67,7 +66,6 @@ for i in range(division):
                 color = GREEN  
             else:
                 color = WHITE
-                #creating the rectangles graphically
             pg.draw.rect(win, color, pg.Rect(int(i*n), HEIGHT - h_arr[i], n, h_arr[i]))
 
         for event in pg.event.get():
@@ -83,4 +81,3 @@ for i in range(division):
 
 if __name__ == "__main__":
     algorithm(h_arr, state, counter)
-         
